@@ -4,243 +4,117 @@
 <meta charset="UTF-8">
 <title>Bünyamin Express Market</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <style>
-body{
-  margin:0;
-  font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial;
-  background:#f2f2f2;
-}
-
-/* HEADER */
-header{
-  background:#fff;
-  padding:15px;
-  border-bottom:1px solid #ddd;
-  display:flex;
-  align-items:center;
-  gap:10px;
-}
-.menu-btn{font-size:24px;cursor:pointer}
-header h1{margin:0;font-size:18px}
-header span{color:#ff7a00}
-
-/* SEARCH */
-.search{
-  padding:10px;
-  background:#fff;
-}
-.search input{
-  width:100%;
-  padding:12px;
-  border-radius:8px;
-  border:1px solid #ccc;
-  font-size:16px;
-}
-
-/* SIDEBAR */
-.sidebar{
-  position:fixed;
-  top:0;left:-260px;
-  width:260px;height:100%;
-  background:#fff;
-  box-shadow:2px 0 10px rgba(0,0,0,.2);
-  padding:20px;
-  transition:.3s;
-  z-index:999;
-}
-.sidebar a{
-  display:block;
-  padding:10px 0;
-  text-decoration:none;
-  color:#222;
-  border-bottom:1px solid #eee;
-}
+body{margin:0;font-family:Arial;background:#f3f3f3}
+header{background:#fff;padding:12px;display:flex;align-items:center;gap:10px;border-bottom:1px solid #ddd}
+.menu{font-size:24px;cursor:pointer}
+.logo{display:flex;align-items:center;gap:8px}
+.logo svg{width:36px}
+.logo span{font-weight:bold}
+.logo span b{color:#ff7a00}
+.search{padding:10px;background:#fff}
+.search input{width:100%;padding:12px;border-radius:8px;border:1px solid #ccc}
+.sidebar{position:fixed;top:0;left:-260px;width:260px;height:100%;background:#fff;padding:20px;transition:.3s;z-index:99}
+.sidebar a{display:block;padding:10px 0;text-decoration:none;color:#222;border-bottom:1px solid #eee}
 .sidebar.open{left:0}
-
-/* CONTAINER */
 .container{padding:15px}
-
-/* CATEGORY */
-.category{
-  margin-bottom:25px;
-}
-.category h2{
-  font-size:18px;
-  border-left:4px solid #ff7a00;
-  padding-left:10px;
-}
-
-/* PRODUCTS */
-.products{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
-  gap:12px;
-}
-
-.product{
-  background:#fff;
-  border-radius:10px;
-  padding:10px;
-  font-size:14px;
-  position:relative;
-}
-.product img{
-  width:100%;
-  height:100px;
-  object-fit:cover;
-  border-radius:8px;
-}
-.product .name{margin:8px 0}
-.product button{
-  background:#ff7a00;
-  color:#fff;
-  border:none;
-  padding:6px 10px;
-  border-radius:6px;
-  cursor:pointer;
-  font-size:12px;
-}
-.favorite{
-  position:absolute;
-  top:8px;right:8px;
-  cursor:pointer;
-  font-size:18px;
-}
-
-/* TODAY */
-.badge{
-  background:#25d366;
-  color:#fff;
-  font-size:10px;
-  padding:3px 6px;
-  border-radius:6px;
-  display:inline-block;
-  margin-bottom:4px;
-}
-
-/* WHATSAPP */
-.whatsapp{
-  position:fixed;
-  bottom:20px;right:20px;
-  background:#25d366;
-  color:#fff;
-  padding:14px 20px;
-  border-radius:50px;
-  text-decoration:none;
-  font-weight:600;
-  box-shadow:0 6px 15px rgba(0,0,0,.25);
-}
+.products{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px}
+.product{background:#fff;border-radius:10px;padding:10px;font-size:14px;position:relative}
+.product img{width:100%;height:100px;object-fit:cover;border-radius:8px}
+.price{font-weight:bold;margin:5px 0}
+.product button{background:#ff7a00;color:#fff;border:none;padding:6px;border-radius:6px;width:100%}
+.favorite{position:absolute;top:8px;right:8px;cursor:pointer}
+.badge{background:#25d366;color:#fff;font-size:10px;padding:3px 6px;border-radius:6px}
+.cart{position:fixed;bottom:20px;left:20px;background:#ff7a00;color:#fff;padding:14px;border-radius:50px;font-weight:bold}
+.whatsapp{position:fixed;bottom:20px;right:20px;background:#25d366;color:#fff;padding:14px 18px;border-radius:50px;text-decoration:none}
+.modal{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.5);display:none;align-items:center;justify-content:center;z-index:999}
+.modal-content{background:#fff;width:90%;max-width:400px;padding:15px;border-radius:10px}
+.modal-content h3{margin-top:0}
+.modal-content input,.modal-content textarea{width:100%;padding:10px;margin-bottom:10px}
+.map{margin:20px 0}
 </style>
 </head>
 
 <body>
 
 <div class="sidebar" id="menu">
-  <a href="#today">🆕 Bugün Gelenler</a>
-  <a href="#meyve">🍎 Meyve</a>
-  <a href="#sebze">🥕 Sebze</a>
-  <a href="#temel">🍚 Temel Gıda</a>
-  <a href="#favoriler">⭐ Favoriler</a>
+<a href="#urunler">🛒 Ürünler</a>
+<a href="#siparis">🧾 Sipariş Formu</a>
+<a href="#harita">📍 Konum</a>
 </div>
 
 <header>
-  <div class="menu-btn" onclick="toggleMenu()">☰</div>
-  <h1><span>Bünyamin</span> Express Market</h1>
+<div class="menu" onclick="toggle()">☰</div>
+<div class="logo">
+<svg viewBox="0 0 64 64">
+<circle cx="32" cy="32" r="30" fill="#ff7a00"/>
+<path d="M18 38h28l4-14H22z" fill="#fff"/>
+<circle cx="26" cy="44" r="3" fill="#fff"/>
+<circle cx="42" cy="44" r="3" fill="#fff"/>
+</svg>
+<span><b>Bünyamin</b> Express</span>
+</div>
 </header>
 
 <div class="search">
-  <input type="text" id="search" placeholder="Ürün ara..." onkeyup="searchProduct()">
+<input placeholder="Ürün ara..." onkeyup="filter(this.value)">
 </div>
 
-<div class="container">
+<div class="container" id="urunler">
+<h3>🛒 Ürünler</h3>
+<div class="products" id="products"></div>
 
-<!-- BUGÜN GELENLER -->
-<div class="category" id="today">
-<h2>Bugün Gelenler</h2>
-<div class="products">
-  <div class="product" data-name="Domates">
-    <div class="badge">Bugün</div>
-    <span class="favorite" onclick="fav(this)">⭐</span>
-    <img src="https://source.unsplash.com/300x200/?tomato">
-    <div class="name">Domates</div>
-    <button onclick="order('Domates')">Fiyat Sor</button>
-  </div>
+<h3 id="siparis">🧾 Sipariş Formu</h3>
+<div class="modal-content">
+<input id="name" placeholder="Ad Soyad">
+<input id="address" placeholder="Adres">
+<textarea id="note" placeholder="Sipariş notu"></textarea>
+<button onclick="sendOrder()">WhatsApp ile Gönder</button>
+</div>
 
-  <div class="product" data-name="Muz">
-    <div class="badge">Bugün</div>
-    <span class="favorite" onclick="fav(this)">⭐</span>
-    <img src="https://source.unsplash.com/300x200/?banana">
-    <div class="name">Muz</div>
-    <button onclick="order('Muz')">Fiyat Sor</button>
-  </div>
+<h3 id="harita">📍 Konum</h3>
+<div class="map">
+<iframe src="https://www.google.com/maps?q=istanbul&output=embed" width="100%" height="250" style="border:0"></iframe>
 </div>
 </div>
 
-<!-- MEYVE -->
-<div class="category" id="meyve">
-<h2>Meyve</h2>
-<div class="products">
-  <div class="product" data-name="Elma">
-    <span class="favorite" onclick="fav(this)">⭐</span>
-    <img src="https://source.unsplash.com/300x200/?apple">
-    <div class="name">Elma</div>
-    <button onclick="order('Elma')">Fiyat Sor</button>
-  </div>
+<div class="cart" onclick="openCart()">🛒 Sepet (<span id="count">0</span>)</div>
 
-  <div class="product" data-name="Portakal">
-    <span class="favorite" onclick="fav(this)">⭐</span>
-    <img src="https://source.unsplash.com/300x200/?orange">
-    <div class="name">Portakal</div>
-    <button onclick="order('Portakal')">Fiyat Sor</button>
-  </div>
-</div>
-</div>
-
-<!-- SEBZE -->
-<div class="category" id="sebze">
-<h2>Sebze</h2>
-<div class="products">
-  <div class="product" data-name="Salatalık">
-    <span class="favorite" onclick="fav(this)">⭐</span>
-    <img src="https://source.unsplash.com/300x200/?cucumber">
-    <div class="name">Salatalık</div>
-    <button onclick="order('Salatalık')">Fiyat Sor</button>
-  </div>
-</div>
-</div>
-
-<!-- FAVORİLER -->
-<div class="category" id="favoriler">
-<h2>Favoriler</h2>
-<p>Favori ürünleriniz ⭐ ile işaretlenir (tarayıcıda kaydedilir).</p>
-</div>
-
-</div>
-
-<a class="whatsapp" href="https://wa.me/905302650355" target="_blank">
-Sipariş & Fiyat
-</a>
+<a class="whatsapp" href="https://wa.me/905302650355" target="_blank">Canlı Destek</a>
 
 <script>
-function toggleMenu(){
-  document.getElementById("menu").classList.toggle("open");
-}
+const productsData=[
+["Elma",25],["Muz",45],["Domates",30],["Salatalık",20],["Süt",35],["Ekmek",10],
+["Yoğurt",40],["Pirinç",60],["Makarna",25],["Ayçiçek Yağı",120]
+];
 
-function order(name){
-  window.open("https://wa.me/905302650355?text="+name+" fiyat alabilir miyim?");
-}
+let cart=[];
 
-function searchProduct(){
-  let input=document.getElementById("search").value.toLowerCase();
-  document.querySelectorAll(".product").forEach(p=>{
-    let name=p.dataset.name.toLowerCase();
-    p.style.display=name.includes(input)?"block":"none";
-  });
-}
+const list=document.getElementById("products");
+productsData.forEach(p=>{
+list.innerHTML+=`
+<div class="product" data-name="${p[0]}">
+<span class="favorite" onclick="this.style.color=this.style.color==='gold'?'#000':'gold'">⭐</span>
+<img src="https://source.unsplash.com/300x200/?${p[0]}">
+<div>${p[0]}</div>
+<div class="price">${p[1]} ₺</div>
+<button onclick="add('${p[0]}',${p[1]})">Sepete Ekle</button>
+</div>`;
+});
 
-function fav(el){
-  el.style.color = el.style.color==="gold"?"#000":"gold";
+function toggle(){menu.classList.toggle("open")}
+function add(n,p){cart.push({n,p});count.innerText=cart.length}
+function openCart(){alert(cart.map(i=>i.n+" - "+i.p+"₺").join("\n"))}
+function filter(v){
+document.querySelectorAll(".product").forEach(p=>{
+p.style.display=p.dataset.name.toLowerCase().includes(v.toLowerCase())?"block":"none";
+});
+}
+function sendOrder(){
+let text="Sipariş:%0A";
+cart.forEach(i=>text+=i.n+" "+i.p+"₺%0A");
+text+="%0AAd:"+name.value+"%0AAdres:"+address.value+"%0ANot:"+note.value;
+window.open("https://wa.me/905302650355?text="+text);
 }
 </script>
 
