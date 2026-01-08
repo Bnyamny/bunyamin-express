@@ -2,125 +2,87 @@
 <html lang="tr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Bünyamin Express</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gülşah’ın Marketi</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
 
 <style>
-*{box-sizing:border-box;font-family:Arial,Helvetica,sans-serif}
-body{
-  margin:0;
-  background:#000;
-  color:#fff;
-}
+*{box-sizing:border-box;font-family:'Poppins',sans-serif}
+body{margin:0;background:#fff;color:#000}
 
 /* HEADER */
 header{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:15px;
-  background:#050505;
-  border-bottom:1px solid #1aff4c;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:12px 15px;background:#b00000;color:#fff
 }
-
-.logo{
-  display:flex;
-  align-items:center;
-  gap:10px;
-}
+.menu-btn{font-size:24px;cursor:pointer}
+.logo{display:flex;gap:10px;align-items:center}
 .logo-icon{
-  width:36px;height:36px;
-  border-radius:50%;
-  background:#1aff4c;
+  width:40px;height:40px;border-radius:10px;
+  background:#fff;color:#b00000;
+  display:flex;align-items:center;justify-content:center;
+  font-weight:800;font-size:20px
 }
-.logo span{
-  font-size:18px;
-  font-weight:bold;
-}
-.logo-sub{
-  font-size:11px;
-  color:#777;
-  text-transform:lowercase;
+.logo span{font-weight:800;font-size:18px}
+.cart-btn{
+  background:#fff;color:#b00000;
+  padding:6px 14px;border-radius:20px;font-weight:700;cursor:pointer
 }
 
-/* CART */
-.cart-btn{
-  background:#1aff4c;
-  color:#000;
-  padding:8px 14px;
-  border-radius:20px;
-  font-weight:bold;
-  cursor:pointer;
+/* SIDEBAR */
+#sidebar{
+  position:fixed;left:-100%;top:0;width:260px;height:100%;
+  background:#fff;padding:15px;transition:.3s;z-index:20;
+  border-right:4px solid #b00000
+}
+#sidebar h3{margin-top:0;color:#b00000}
+#sidebar div{
+  padding:10px 0;border-bottom:1px solid #eee;
+  cursor:pointer;font-weight:600
 }
 
 /* PRODUCTS */
 .products{
-  display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(160px,1fr));
-  gap:15px;
-  padding:15px;
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));
+  gap:14px;padding:14px
 }
-
 .card{
-  background:#0b0b0b;
-  border-radius:14px;
-  padding:12px;
-  border:1px solid #111;
+  border:1px solid #ddd;border-radius:14px;padding:12px;
 }
-
 .product-title-box{
-  height:120px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  text-align:center;
-  font-size:16px;
-  font-weight:700;
-  letter-spacing:1px;
-  color:#1aff4c;
-  background:#050505;
-  border-radius:10px;
-  margin-bottom:8px;
+  height:120px;display:flex;align-items:center;justify-content:center;
+  text-align:center;font-size:15px;font-weight:800;
+  color:#b00000;background:#f7f7f7;border-radius:10px;margin-bottom:8px
 }
-
-.price{
-  font-size:15px;
-  margin:6px 0;
-}
-
+.price{margin:6px 0;font-weight:600}
 .card button{
-  width:100%;
-  padding:8px;
-  background:#1aff4c;
-  color:#000;
-  border:none;
-  border-radius:8px;
-  font-weight:bold;
-  cursor:pointer;
+  width:100%;padding:8px;background:#b00000;color:#fff;
+  border:none;border-radius:8px;font-weight:700;cursor:pointer
 }
 
-/* CART PANEL */
+/* CART */
+#overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:9}
 #cart{
-  position:fixed;
-  top:0;right:-100%;
-  width:300px;
-  height:100%;
-  background:#050505;
-  padding:15px;
-  transition:.3s;
-  z-index:10;
+  position:fixed;right:-100%;top:0;width:320px;height:100%;
+  background:#fff;padding:15px;transition:.3s;z-index:10;
+  border-left:4px solid #b00000
 }
-#cart h3{margin-top:0}
-#cart ul{padding:0;list-style:none}
-#cart li{margin:5px 0;font-size:14px}
-#cart button{
-  margin-top:10px;
-  width:100%;
-  padding:10px;
-  background:#1aff4c;
-  border:none;
-  font-weight:bold;
+.cart-header{
+  display:flex;justify-content:space-between;align-items:center;
+  color:#b00000
 }
+.close{cursor:pointer;font-size:22px}
+#cart ul{list-style:none;padding:0;font-size:14px}
+.whatsapp{
+  display:block;text-align:center;margin-top:10px;
+  background:#25d366;color:#fff;padding:10px;
+  border-radius:8px;text-decoration:none;font-weight:700
+}
+
+/* FORM & MAP */
+.section{padding:15px}
+.section h3{color:#b00000}
 
 /* MOBILE */
 @media(max-width:600px){
@@ -132,77 +94,133 @@ header{
 <body>
 
 <header>
+  <div class="menu-btn" onclick="toggleMenu()">☰</div>
   <div class="logo">
-    <div class="logo-icon"></div>
+    <div class="logo-icon">G</div>
     <div>
-      <span>Bünyamin Express</span>
-      <div class="logo-sub">gülşah hanıma bedava</div>
+      <span>Gülşah’ın Marketi</span>
     </div>
   </div>
   <div class="cart-btn" onclick="toggleCart()">Sepet (<span id="count">0</span>)</div>
 </header>
 
+<div id="sidebar">
+  <h3>Kategoriler</h3>
+  <div onclick="filterCat('market')">Market</div>
+  <div onclick="filterCat('icecek')">İçecek</div>
+  <div onclick="filterCat('temizlik')">Temizlik</div>
+  <div onclick="filterCat('sex')">Sex Shop</div>
+  <div onclick="document.getElementById('order').scrollIntoView()">Sipariş Formu</div>
+  <div onclick="document.getElementById('map').scrollIntoView()">Harita</div>
+</div>
+
 <div class="products" id="products"></div>
 
+<div class="section" id="order">
+  <h3>Sipariş Formu</h3>
+  <input placeholder="Ad Soyad" style="width:100%;padding:8px;margin-bottom:8px">
+  <input placeholder="Telefon" style="width:100%;padding:8px;margin-bottom:8px">
+  <textarea placeholder="Adres" style="width:100%;padding:8px"></textarea>
+</div>
+
+<div class="section" id="map">
+  <h3>Konum</h3>
+  <iframe
+    src="https://www.google.com/maps?q=istanbul&output=embed"
+    width="100%" height="200" style="border:0"></iframe>
+</div>
+
+<div id="overlay" onclick="toggleCart()"></div>
+
 <div id="cart">
-  <h3>Sepet</h3>
+  <div class="cart-header">
+    <h3>Sepet</h3>
+    <span class="close" onclick="toggleCart()">✕</span>
+  </div>
   <ul id="cartList"></ul>
   <strong>Toplam: <span id="total">0</span> ₺</strong>
-  <button onclick="toggleCart()">Kapat</button>
+  <a class="whatsapp" id="wa" target="_blank">WhatsApp ile Sipariş</a>
 </div>
 
 <script>
-const baseProducts=[
- "Elma","Muz","Portakal","Domates","Salatalık",
- "Patates","Soğan","Süt","Yoğurt","Peynir",
- "Pirinç","Makarna","Un","Şeker","Çay",
- "Kahve","Kola","Su","Cips","Çikolata",
- "Deterjan","Şampuan","Sabun","Yumuşatıcı","Bulaşık Deterjanı"
+const base=[
+ {n:"Elma",c:"market"},{n:"Muz",c:"market"},{n:"Pirinç",c:"market"},
+ {n:"Makarna",c:"market"},{n:"Süt",c:"market"},
+ {n:"Kola",c:"icecek"},{n:"Su",c:"icecek"},{n:"Meyve Suyu",c:"icecek"},
+ {n:"Deterjan",c:"temizlik"},{n:"Şampuan",c:"temizlik"},
+ {n:"Prezervatif",c:"sex"},{n:"Masaj Yağı",c:"sex"},
+ {n:"Geciktirici Sprey",c:"sex"}
 ];
 
-const products=[];
-for(let i=0;i<24;i++){
- baseProducts.forEach(name=>{
+let products=[];
+for(let i=0;i<50;i++){
+ base.forEach(p=>{
   products.push({
-    name: name+" "+(i+1),
-    price: Math.floor(Math.random()*80)+20
+   name:p.n+" "+(i+1),
+   cat:p.c,
+   price:Math.floor(Math.random()*120)+20
   });
  });
 }
-// ≈ 600 ÜRÜN
 
 const list=document.getElementById("products");
-products.forEach(p=>{
- list.innerHTML+=`
-  <div class="card">
+function render(arr){
+ list.innerHTML="";
+ arr.forEach(p=>{
+  list.innerHTML+=`
+   <div class="card">
     <div class="product-title-box">${p.name.toUpperCase()}</div>
     <div class="price">${p.price} ₺</div>
     <button onclick="add('${p.name}',${p.price})">Sepete Ekle</button>
-  </div>
- `;
-});
+   </div>`;
+ });
+}
+render(products);
 
-let cart=[],total=0;
-function add(name,price){
- cart.push({name,price});
- total+=price;
- document.getElementById("count").innerText=cart.length;
- document.getElementById("total").innerText=total;
- renderCart();
+function filterCat(c){
+ render(products.filter(p=>p.cat===c));
+ toggleMenu();
 }
 
-function renderCart(){
+function toggleMenu(){
+ const s=document.getElementById("sidebar");
+ s.style.left=s.style.left==="0px"?"-100%":"0px";
+}
+
+let cart=[],total=0;
+function add(n,p){
+ cart.push({n,p});total+=p;
+ document.getElementById("count").innerText=cart.length;
+ document.getElementById("total").innerText=total;
  const ul=document.getElementById("cartList");
  ul.innerHTML="";
+ let msg="";
  cart.forEach(i=>{
-  ul.innerHTML+=`<li>${i.name} - ${i.price} ₺</li>`;
+  ul.innerHTML+=`<li>${i.n} - ${i.p} ₺</li>`;
+  msg+=`${i.n} - ${i.p}₺%0A`;
  });
+ document.getElementById("wa").href=
+  "https://wa.me/905302650355?text=Sipariş:%0A"+msg+"Toplam: "+total+"₺";
 }
 
 function toggleCart(){
  const c=document.getElementById("cart");
- c.style.right=c.style.right=="0px"?"-100%":"0px";
+ const o=document.getElementById("overlay");
+ if(c.style.right==="0px"){
+  c.style.right="-100%";o.style.display="none";history.back();
+ }else{
+  c.style.right="0px";o.style.display="block";
+  history.pushState(null,null,"#cart");
+ }
 }
+
+window.onpopstate=()=>{
+ document.getElementById("cart").style.right="-100%";
+ document.getElementById("overlay").style.display="none";
+};
+document.addEventListener("keydown",e=>{
+ if(e.key==="Escape") toggleCart();
+});
 </script>
 
 </body>
