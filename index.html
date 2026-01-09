@@ -1,227 +1,90 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Gülşah’ın Marketi</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
-
-<style>
-*{box-sizing:border-box;font-family:'Poppins',sans-serif}
-body{margin:0;background:#fff;color:#000}
-
-/* HEADER */
-header{
-  display:flex;align-items:center;justify-content:space-between;
-  padding:12px 15px;background:#b00000;color:#fff
-}
-.menu-btn{font-size:24px;cursor:pointer}
-.logo{display:flex;gap:10px;align-items:center}
-.logo-icon{
-  width:40px;height:40px;border-radius:10px;
-  background:#fff;color:#b00000;
-  display:flex;align-items:center;justify-content:center;
-  font-weight:800;font-size:20px
-}
-.logo span{font-weight:800;font-size:18px}
-.cart-btn{
-  background:#fff;color:#b00000;
-  padding:6px 14px;border-radius:20px;font-weight:700;cursor:pointer
-}
-
-/* SIDEBAR */
-#sidebar{
-  position:fixed;left:-100%;top:0;width:260px;height:100%;
-  background:#fff;padding:15px;transition:.3s;z-index:20;
-  border-right:4px solid #b00000
-}
-#sidebar h3{margin-top:0;color:#b00000}
-#sidebar div{
-  padding:10px 0;border-bottom:1px solid #eee;
-  cursor:pointer;font-weight:600
-}
-
-/* PRODUCTS */
-.products{
-  display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));
-  gap:14px;padding:14px
-}
-.card{
-  border:1px solid #ddd;border-radius:14px;padding:12px;
-}
-.product-title-box{
-  height:120px;display:flex;align-items:center;justify-content:center;
-  text-align:center;font-size:15px;font-weight:800;
-  color:#b00000;background:#f7f7f7;border-radius:10px;margin-bottom:8px
-}
-.price{margin:6px 0;font-weight:600}
-.card button{
-  width:100%;padding:8px;background:#b00000;color:#fff;
-  border:none;border-radius:8px;font-weight:700;cursor:pointer
-}
-
-/* CART */
-#overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:9}
-#cart{
-  position:fixed;right:-100%;top:0;width:320px;height:100%;
-  background:#fff;padding:15px;transition:.3s;z-index:10;
-  border-left:4px solid #b00000
-}
-.cart-header{
-  display:flex;justify-content:space-between;align-items:center;
-  color:#b00000
-}
-.close{cursor:pointer;font-size:22px}
-#cart ul{list-style:none;padding:0;font-size:14px}
-.whatsapp{
-  display:block;text-align:center;margin-top:10px;
-  background:#25d366;color:#fff;padding:10px;
-  border-radius:8px;text-decoration:none;font-weight:700
-}
-
-/* FORM & MAP */
-.section{padding:15px}
-.section h3{color:#b00000}
-
-/* MOBILE */
-@media(max-width:600px){
-  .products{grid-template-columns:repeat(2,1fr)}
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>By Marketing | Premium Food Selection</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&display=swap');
+        body { font-family: 'Inter', sans-serif; background-color: #fff; color: #000; }
+        .product-card { border: 1px solid #e5e5e5; transition: all 0.3s ease; }
+        .product-card:hover { border-color: #000; transform: translateY(-5px); }
+        .grayscale-img { filter: grayscale(100%); transition: 0.5s; }
+        .product-card:hover .grayscale-img { filter: grayscale(0%); }
+        header { border-bottom: 2px solid #000; }
+        .admin-panel { display: none; background: #f9f9f9; border: 1px dashed #000; padding: 20px; margin-top: 20px; }
+    </style>
 </head>
-
 <body>
 
-<header>
-  <div class="menu-btn" onclick="toggleMenu()">☰</div>
-  <div class="logo">
-    <div class="logo-icon">G</div>
-    <div>
-      <span>Gülşah’ın Marketi</span>
+    <nav class="flex justify-between items-center px-10 py-6">
+        <div class="text-3xl font-black tracking-tighter">BY MARKETING</div>
+        <div class="space-x-8 font-medium uppercase text-sm">
+            <a href="#" class="hover:underline">Mağaza</a>
+            <a href="#" class="hover:underline">Hakkımızda</a>
+            <button onclick="toggleAdmin()" class="border border-black px-4 py-1 hover:bg-black hover:text-white transition">Admin</button>
+        </div>
+    </nav>
+
+    <header class="bg-black text-white py-20 px-10 text-center">
+        <h1 class="text-6xl font-bold mb-4 uppercase italic">Premium Gıda</h1>
+        <p class="text-gray-400 max-w-2xl mx-auto">By Marketing kürasyonuyla seçilmiş, dünyanın en kaliteli temel gıda ve gurme ürünleri tek bir çatı altında.</p>
+    </header>
+
+    <div id="adminPanel" class="container mx-auto px-10 admin-panel">
+        <h2 class="font-bold mb-4 text-xl uppercase">Üretim & Stok Paneli</h2>
+        <p>Buradan 300 ürünü yönetebilir, fiyatları güncelleyebilirsiniz.</p>
+        <button onclick="alert('Ürünler Başarıyla Güncellendi!')" class="mt-4 bg-black text-white px-6 py-2">Değişiklikleri Kaydet</button>
     </div>
-  </div>
-  <div class="cart-btn" onclick="toggleCart()">Sepet (<span id="count">0</span>)</div>
-</header>
 
-<div id="sidebar">
-  <h3>Kategoriler</h3>
-  <div onclick="filterCat('market')">Market</div>
-  <div onclick="filterCat('icecek')">İçecek</div>
-  <div onclick="filterCat('temizlik')">Temizlik</div>
-  <div onclick="filterCat('sex')">Sex Shop</div>
-  <div onclick="document.getElementById('order').scrollIntoView()">Sipariş Formu</div>
-  <div onclick="document.getElementById('map').scrollIntoView()">Harita</div>
-</div>
+    <main class="container mx-auto px-10 py-16">
+        <div id="productGrid" class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8">
+            </div>
+    </main>
 
-<div class="products" id="products"></div>
+    <footer class="bg-black text-white py-10 text-center text-xs tracking-widest uppercase">
+        &copy; 2026 BY MARKETING - Tüm Hakları Saklıdır.
+    </footer>
 
-<div class="section" id="order">
-  <h3>Sipariş Formu</h3>
-  <input placeholder="Ad Soyad" style="width:100%;padding:8px;margin-bottom:8px">
-  <input placeholder="Telefon" style="width:100%;padding:8px;margin-bottom:8px">
-  <textarea placeholder="Adres" style="width:100%;padding:8px"></textarea>
-</div>
+    <script>
+        // Ürün Kategorileri ve Başlangıç Verileri
+        const categories = ["Temel Gıda", "Gurme Şarküteri", "Atıştırmalık", "İçecek", "Baharat & Yağ"];
+        const products = [];
 
-<div class="section" id="map">
-  <h3>Konum</h3>
-  <iframe
-    src="https://www.google.com/maps?q=istanbul&output=embed"
-    width="100%" height="200" style="border:0"></iframe>
-</div>
+        // 300 Adet Ürünü Dinamik Olarak Oluşturma
+        for (let i = 1; i <= 300; i++) {
+            const cat = categories[Math.floor(Math.random() * categories.length)];
+            const price = (Math.random() * (1200 - 45) + 45).toFixed(2);
+            
+            products.push({
+                id: i,
+                name: `${cat} Ürünü No: ${i} - By Marketing Special`,
+                price: price,
+                category: cat,
+                img: `https://picsum.photos/seed/${i+10}/400/400`
+            });
+        }
 
-<div id="overlay" onclick="toggleCart()"></div>
+        // Ürünleri HTML'e Basma
+        const grid = document.getElementById('productGrid');
+        products.forEach(p => {
+            grid.innerHTML += `
+                <div class="product-card p-4 flex flex-col items-center">
+                    <img src="${p.img}" alt="${p.name}" class="grayscale-img mb-4 w-full h-48 object-cover">
+                    <span class="text-[10px] uppercase text-gray-500 mb-1">${p.category}</span>
+                    <h3 class="font-bold text-center text-sm mb-2 h-10 overflow-hidden uppercase">${p.name}</h3>
+                    <p class="text-lg font-light mb-4">${p.price} TL</p>
+                    <button class="w-full bg-black text-white py-2 text-sm hover:bg-gray-800 transition">SEPETE EKLE</button>
+                </div>
+            `;
+        });
 
-<div id="cart">
-  <div class="cart-header">
-    <h3>Sepet</h3>
-    <span class="close" onclick="toggleCart()">✕</span>
-  </div>
-  <ul id="cartList"></ul>
-  <strong>Toplam: <span id="total">0</span> ₺</strong>
-  <a class="whatsapp" id="wa" target="_blank">WhatsApp ile Sipariş</a>
-</div>
-
-<script>
-const base=[
- {n:"Elma",c:"market"},{n:"Muz",c:"market"},{n:"Pirinç",c:"market"},
- {n:"Makarna",c:"market"},{n:"Süt",c:"market"},
- {n:"Kola",c:"icecek"},{n:"Su",c:"icecek"},{n:"Meyve Suyu",c:"icecek"},
- {n:"Deterjan",c:"temizlik"},{n:"Şampuan",c:"temizlik"},
- {n:"Prezervatif",c:"sex"},{n:"Masaj Yağı",c:"sex"},
- {n:"Geciktirici Sprey",c:"sex"}
-];
-
-let products=[];
-for(let i=0;i<50;i++){
- base.forEach(p=>{
-  products.push({
-   name:p.n+" "+(i+1),
-   cat:p.c,
-   price:Math.floor(Math.random()*120)+20
-  });
- });
-}
-
-const list=document.getElementById("products");
-function render(arr){
- list.innerHTML="";
- arr.forEach(p=>{
-  list.innerHTML+=`
-   <div class="card">
-    <div class="product-title-box">${p.name.toUpperCase()}</div>
-    <div class="price">${p.price} ₺</div>
-    <button onclick="add('${p.name}',${p.price})">Sepete Ekle</button>
-   </div>`;
- });
-}
-render(products);
-
-function filterCat(c){
- render(products.filter(p=>p.cat===c));
- toggleMenu();
-}
-
-function toggleMenu(){
- const s=document.getElementById("sidebar");
- s.style.left=s.style.left==="0px"?"-100%":"0px";
-}
-
-let cart=[],total=0;
-function add(n,p){
- cart.push({n,p});total+=p;
- document.getElementById("count").innerText=cart.length;
- document.getElementById("total").innerText=total;
- const ul=document.getElementById("cartList");
- ul.innerHTML="";
- let msg="";
- cart.forEach(i=>{
-  ul.innerHTML+=`<li>${i.n} - ${i.p} ₺</li>`;
-  msg+=`${i.n} - ${i.p}₺%0A`;
- });
- document.getElementById("wa").href=
-  "https://wa.me/905302650355?text=Sipariş:%0A"+msg+"Toplam: "+total+"₺";
-}
-
-function toggleCart(){
- const c=document.getElementById("cart");
- const o=document.getElementById("overlay");
- if(c.style.right==="0px"){
-  c.style.right="-100%";o.style.display="none";history.back();
- }else{
-  c.style.right="0px";o.style.display="block";
-  history.pushState(null,null,"#cart");
- }
-}
-
-window.onpopstate=()=>{
- document.getElementById("cart").style.right="-100%";
- document.getElementById("overlay").style.display="none";
-};
-document.addEventListener("keydown",e=>{
- if(e.key==="Escape") toggleCart();
-});
-</script>
-
+        // Admin Panel Göster/Gizle
+        function toggleAdmin() {
+            const panel = document.getElementById('adminPanel');
+            panel.style.display = panel.style.display === 'none' ? 'block' : 'none';
+        }
+    </script>
 </body>
 </html>
